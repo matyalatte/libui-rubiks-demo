@@ -138,7 +138,7 @@ struct Matrix3D {
             m21 * s, m22 * s, m23 * s,
             m31 * s, m32 * s, m33 * s
         };
-	}
+    }
 
     Matrix3D& operator*=(double s)
     {
@@ -151,8 +151,8 @@ struct Matrix3D {
         m31 *= s;
         m32 *= s;
         m33 *= s;
-		return *this;
-	}
+        return *this;
+    }
 
     Matrix3D operator*(const Matrix3D& A) const
     {
@@ -170,7 +170,7 @@ struct Matrix3D {
             new21, new22, new23,
             new31, new32, new33
         };
-	}
+    }
 
     Matrix3D& operator*=(const Matrix3D& A)
     {
@@ -193,7 +193,7 @@ struct Matrix3D {
         m32 = new32;
         m33 = new33;
         return *this;
-	}
+    }
 
     Vec3D operator*(const Vec3D& v) const
     {
@@ -201,7 +201,7 @@ struct Matrix3D {
         double y = m21 * v.x + m22 * v.y + m23 * v.z;
         double z = m31 * v.x + m32 * v.y + m33 * v.z;
         return { x, y, z };
-	}
+    }
 
     Matrix3D& operator=(const Matrix3D& A)
     {
@@ -215,7 +215,7 @@ struct Matrix3D {
         m32 = A.m32;
         m33 = A.m33;
         return *this;
-	}
+    }
 };
 
 struct Quad {

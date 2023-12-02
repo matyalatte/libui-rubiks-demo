@@ -13,16 +13,16 @@ uiAreaHandler handler;
 // helper to quickly set a brush color
 static void SetSolidBrush(uiDrawBrush *brush, uint32_t color, double alpha)
 {
-	uint8_t component;
+    uint8_t component;
 
-	brush->Type = uiDrawBrushTypeSolid;
-	component = (uint8_t) ((color >> 16) & 0xFF);
-	brush->R = ((double) component) / 255;
-	component = (uint8_t) ((color >> 8) & 0xFF);
-	brush->G = ((double) component) / 255;
-	component = (uint8_t) (color & 0xFF);
-	brush->B = ((double) component) / 255;
-	brush->A = alpha;
+    brush->Type = uiDrawBrushTypeSolid;
+    component = (uint8_t) ((color >> 16) & 0xFF);
+    brush->R = ((double) component) / 255;
+    component = (uint8_t) ((color >> 8) & 0xFF);
+    brush->G = ((double) component) / 255;
+    component = (uint8_t) (color & 0xFF);
+    brush->B = ((double) component) / 255;
+    brush->A = alpha;
 }
 
 // helper to draw a quad face
@@ -37,11 +37,11 @@ static void DrawQuad(uiAreaDrawParams *p, const std::vector<Vec3D>& vertices, co
     Vec3D v2 = vertices[face.v2];
     Vec3D v3 = vertices[face.v3];
     Vec3D v4 = vertices[face.v4];
-	uiDrawPathNewFigure(path, v1.x, v1.y);
-	uiDrawPathLineTo(path, v2.x, v2.y);
-	uiDrawPathLineTo(path, v3.x, v3.y);
-	uiDrawPathLineTo(path, v4.x, v4.y);
-	uiDrawPathCloseFigure(path);
+    uiDrawPathNewFigure(path, v1.x, v1.y);
+    uiDrawPathLineTo(path, v2.x, v2.y);
+    uiDrawPathLineTo(path, v3.x, v3.y);
+    uiDrawPathLineTo(path, v4.x, v4.y);
+    uiDrawPathCloseFigure(path);
 
     uiDrawPathEnd(path);
     uiDrawFill(p->Context, path, &brush);
@@ -59,12 +59,12 @@ static void HandlerDraw(uiAreaHandler *a, uiArea *area, uiAreaDrawParams *p)
     // fill the area
     uiDrawPath *path;
     uiDrawBrush brush;
-	SetSolidBrush(&brush, rubiks::COLOR_GRAY, 1.0);
-	path = uiDrawNewPath(uiDrawFillModeWinding);
-	uiDrawPathAddRectangle(path, 0, 0, p->AreaWidth, p->AreaHeight);
-	uiDrawPathEnd(path);
-	uiDrawFill(p->Context, path, &brush);
-	uiDrawFreePath(path);
+    SetSolidBrush(&brush, rubiks::COLOR_GRAY, 1.0);
+    path = uiDrawNewPath(uiDrawFillModeWinding);
+    uiDrawPathAddRectangle(path, 0, 0, p->AreaWidth, p->AreaHeight);
+    uiDrawPathEnd(path);
+    uiDrawFill(p->Context, path, &brush);
+    uiDrawFreePath(path);
 
     // Draw faces    
     for (const Quad& face: visible_faces) {
@@ -86,18 +86,18 @@ static void HandlerMouseEvent(uiAreaHandler *a, uiArea *area, uiAreaMouseEvent *
 
 static void HandlerMouseCrossed(uiAreaHandler *ah, uiArea *a, int left)
 {
-	// do nothing
+    // do nothing
 }
 
 static void HandlerDragBroken(uiAreaHandler *ah, uiArea *a)
 {
-	// do nothing
+    // do nothing
 }
 
 static int HandlerKeyEvent(uiAreaHandler *ah, uiArea *a, uiAreaKeyEvent *e)
 {
-	// reject all keys
-	return 0;
+    // reject all keys
+    return 0;
 }
 
 static int OnClosing(uiWindow *w, void *data)
@@ -165,38 +165,38 @@ void CreateWindow()
 
     // Main container
     uiBox *vbox = uiNewVerticalBox();
-	uiBoxSetPadded(vbox, 1);
-	uiWindowSetChild(mainwin, uiControl(vbox));
+    uiBoxSetPadded(vbox, 1);
+    uiWindowSetChild(mainwin, uiControl(vbox));
 
     // Drawing area
     handler.Draw = HandlerDraw;
-	handler.MouseEvent = HandlerMouseEvent;
-	handler.MouseCrossed = HandlerMouseCrossed;
-	handler.DragBroken = HandlerDragBroken;
-	handler.KeyEvent = HandlerKeyEvent;
+    handler.MouseEvent = HandlerMouseEvent;
+    handler.MouseCrossed = HandlerMouseCrossed;
+    handler.DragBroken = HandlerDragBroken;
+    handler.KeyEvent = HandlerKeyEvent;
 
     uiArea *area = uiNewArea(&handler);
-	uiBoxAppend(vbox, uiControl(area), 1);
+    uiBoxAppend(vbox, uiControl(area), 1);
 
     uiTimer(10, OnAnimating, area);
 
     // Buttons
     uiBox *button_box = uiNewHorizontalBox();
-	uiBoxSetPadded(button_box, 1);
+    uiBoxSetPadded(button_box, 1);
 
     uiButton *button = uiNewButton("Reset View");
     uiButtonOnClicked(button, OnResetView, area);
-	uiBoxAppend(button_box, uiControl(button), 0);
+    uiBoxAppend(button_box, uiControl(button), 0);
 
     button = uiNewButton("Reset Colors");
     uiButtonOnClicked(button, OnResetColors, area);
-	uiBoxAppend(button_box, uiControl(button), 0);
+    uiBoxAppend(button_box, uiControl(button), 0);
 
     button = uiNewButton("Scramble");
     uiButtonOnClicked(button, OnScramble, area);
-	uiBoxAppend(button_box, uiControl(button), 0);
+    uiBoxAppend(button_box, uiControl(button), 0);
 
-	uiBoxAppend(vbox, uiControl(button_box), 0);
+    uiBoxAppend(vbox, uiControl(button_box), 0);
 
     // Make them visible
     uiControlShow(uiControl(mainwin));
