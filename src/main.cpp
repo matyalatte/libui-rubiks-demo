@@ -8,6 +8,7 @@
 rubiks::RubiksCube g_rubiks;
 rubiks::AnimationHandler *g_animation_handler;
 rubiks::MouseHandler *g_mouse_handler;
+uiAreaHandler handler;
 
 // helper to quickly set a brush color
 static void SetSolidBrush(uiDrawBrush *brush, uint32_t color, double alpha)
@@ -168,8 +169,6 @@ void CreateWindow()
 	uiWindowSetChild(mainwin, uiControl(vbox));
 
     // Drawing area
-    uiAreaHandler handler;
-
     handler.Draw = HandlerDraw;
 	handler.MouseEvent = HandlerMouseEvent;
 	handler.MouseCrossed = HandlerMouseCrossed;
